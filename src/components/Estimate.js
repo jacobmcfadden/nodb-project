@@ -52,7 +52,7 @@ class Estimate extends Component {
             )
         } else {
             return (
-            <EstimateDoc selectedEstimate={selectedEstimate} handleSelected={handleSelected}/>
+            <EstimateDoc selectedEstimate={selectedEstimate} handleSelected={handleSelected} approveEstimate={this.props.approveEstimate}/>
             )
         }
     }

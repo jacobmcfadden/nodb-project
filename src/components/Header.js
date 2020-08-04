@@ -8,7 +8,7 @@ import SubnavDelete from './SubnavDelete';
 import SubnavNew from './SubnavNew';
 
 const Header = (props) => {
-    const { filterPhrase, setFilter, currentView, estimates } = props;
+    const { filterPhrase, setFilter, currentView } = props;
 
     if(currentView === 'list') {
         return (
@@ -16,7 +16,7 @@ const Header = (props) => {
         )
     }else if(currentView === 'view') {
         return (
-            <SubnavView filterPhrase={filterPhrase} setFilter={setFilter} currentView={currentView} selectedEstimate={props.selectedEstimate} handleSelected={props.handleSelected} />
+            <SubnavView filterPhrase={filterPhrase} setFilter={setFilter} currentView={currentView} selectedEstimate={props.selectedEstimate} handleSelected={props.handleSelected} approveEstimate={props.approveEstimate} />
         )
     } else if(currentView === 'edit'){
         return (

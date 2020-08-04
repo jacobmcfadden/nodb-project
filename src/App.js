@@ -31,7 +31,6 @@ class App extends Component {
     if(prevState.filterPhrase !== this.state.filterPhrase) {
       this.filterEstimates(this.state.filterPhrase);
     }
-      
   }
 
   //-------Axios backend calls
@@ -53,7 +52,6 @@ class App extends Component {
     .then( res => {
       this.setState({
         estimates: res.data,
-        selectedEstimate: [],
         currentView: 'list'
       })
     })
@@ -65,30 +63,34 @@ class App extends Component {
     .then(res => {
         this.setState({
             estimates: res.data,
-            
             currentView: 'list'
         })
     }).catch( err => console.log(err))
   }
 
-  approveEstimate = (id) => {
+  approveEstimate = (e, id) => {
+    e.preventDefault();
     axios.put(`./api/estimates/approve/${id}`)
     .then( res => {
       this.setState({
         estimates: res.data,
-        selectedEstimate: [],
-        currentView: 'list'
+      
+        currentView: 'view'
       })
-    })
+    }).catch( err => console.log(err))
   }
 
-  editEstimate = (id, body) => {
-    axios.put(`./api/estimate/${id}`)
+  editEstimate = (e, body) => {
+    e.preventDefault();
+    console.log(body)
+    const {id } = body;
+    axios.put(`./api/estimates/edit/${id}`, {body})
     .then(res => {
         this.setState({
-            estimates: res.data
+            estimates: res.data,
+            currentView: 'list'
         })
-    })
+    }).catch( err => console.log(err))
   }
 
   // App Calls
@@ -151,6 +153,7 @@ class App extends Component {
         currentView={this.state.currentView} 
         handleSelected={this.handleSelected}
         selectedEstimate={this.state.selectedEstimate}
+        approveEstimate={this.approveEstimate}
         />
       </header>
       <main className="bg-light">
@@ -162,7 +165,7 @@ class App extends Component {
         addEstimate={this.addEstimate}
         editEstimate={this.editEstimate}
         deleteEstimate={this.deleteEstimate}
-        approveEstimate={this.approveEstimate}
+        
         />
       </main>
     </div>

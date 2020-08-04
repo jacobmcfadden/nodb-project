@@ -2,8 +2,8 @@ import React from 'react';
 import NumberFormat from 'react-number-format';
 
 const EstimateDoc = (props) => {
-    const {id, status, date, title, propertyName, streetAdress, cityStateZip, mgtCo, client, estimateNotes, scope, totalPrice } = props.selectedEstimate[0];
-
+    const {id, status, approved, date, title, propertyName, streetAdress, cityStateZip, mgtCo, client, estimateNotes, scope, totalPrice } = props.selectedEstimate[0];
+    
     return (
         <div className="container">       
             <div data-id={id} className="col"  id="estimate">
@@ -11,6 +11,7 @@ const EstimateDoc = (props) => {
                     <div data-id={id} className="estimate-caption">
                         <div className="" id="id">{`ID ${id}`}</div>
                         <div className="" id="status">{`Status ${status}`}</div>
+                        <div className="" id="approved">{`Approval ${approved? "Complete" : "Pending" }`}</div>
                         <div className="" id="date">{`Date ${date}`}</div>
                         <div className="" id="title">{`Title ${title}`}</div>
                         <div className="" id="propertyName">{`Property Name ${propertyName}`}</div>

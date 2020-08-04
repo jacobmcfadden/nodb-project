@@ -46,7 +46,19 @@ module.exports = {
         if(index === -1){
             res.status(404).send('estimate not found in list')
         } else {
-            estimate[index].approved = !estimate[index].approved
+            estimates[index].approved = !estimates[index].approved
+            res.status(200).send(estimates)
+        }
+    },
+    updateEstimate: (req, res) => {
+        const {id} = req.params;
+        const { updatedEstimate } = req.body;
+        const index = estimates.findIndex(estimate => estimate.id === +id);
+        
+        if(index === -1){
+            res.status(404).send('estimate not found in list')
+        } else {
+            estimates[index] = {...estimates[index], ...updatedEstimate}
             res.status(200).send(estimates)
         }
     }
