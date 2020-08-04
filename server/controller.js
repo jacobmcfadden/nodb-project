@@ -51,13 +51,18 @@ module.exports = {
         }
     },
     updateEstimate: (req, res) => {
+        
         const {id} = req.params;
+        console.log('hit', id)
         const index = estimates.findIndex(estimate => estimate.id === +id);
+        console.log('index', index);
         if(index === -1){
             res.status(404).send('estimate not found in list')
         } else {
-            estimates[index] = {...estimates[index], ...req.body};
+            estimates[index] = req.body.body;
+            console.log(estimates[index])
             res.status(200).send(estimates);
+            console.log('sent');
         }
     }
 }

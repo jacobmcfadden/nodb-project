@@ -1,11 +1,11 @@
 import React from 'react';
+import '../styling/List.css';
 
 import List from './List';
 import EstimateDoc from './EstimateDoc';
 import EstimateEdit from './EstimateEdit';
 import EstimateDelete from './EstimateDelete';
 import AddEstimate from './AddEstimate';
-import '../styling/List.css';
 
 const Estimate = (props) => {
 

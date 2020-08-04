@@ -25,6 +25,8 @@ class App extends Component {
     this.approveEstimate = this.approveEstimate.bind(this);
   }
 
+  // Life Cycle Calls
+
   componentDidMount(){
     this.getEstimates()
   }
@@ -46,22 +48,19 @@ class App extends Component {
     }).catch( err => console.log(err))
   }
 
-  addEstimate = (e, body) => {
- 
+  addEstimate = (body) => {
     const { date, title, propertyName, streetAddress, cityStateZip, mgtCo, client, estimateNotes, scope, totalPrice } = body;
-
-    axios.post('./api/estimates', {date, title, propertyName, streetAddress, cityStateZip, mgtCo, client, estimateNotes, scope, totalPrice})
+    axios.post('/api/estimates', {date, title, propertyName, streetAddress, cityStateZip, mgtCo, client, estimateNotes, scope, totalPrice})
     .then( res => {
       this.setState({
         estimates: res.data,
         currentView: 'list'
       })
-    })
-    .catch( err => console.log(err))
+    }).catch( err => console.log(err))
   }
 
   deleteEstimate = (id) => {
-    axios.delete(`./api/estimates/${id}`)
+    axios.delete(`/api/estimates/${id}`)
     .then(res => {
         this.setState({
             estimates: res.data,
@@ -70,23 +69,20 @@ class App extends Component {
     }).catch( err => console.log(err))
   }
 
-  approveEstimate = (e, id) => {
-   
-    axios.put(`./api/estimates/approve/${id}`)
+  approveEstimate = (id) => {
+    axios.put(`/api/estimates/approve/${id}`)
     .then( res => {
       this.setState({
         estimates: res.data,
         currentView: 'view'
       })
+      this.handleSelected(null, 'view');
     }).catch( err => console.log(err))
   }
 
-  editEstimate = (e, id, body) => {
-
-  
-    axios.put(`./api/estimates/edit/${id}`, {body})
+  editEstimate = (id, body) => {
+    axios.put(`/api/estimates/edit/${id}`, {body})
     .then( res => {
-      console.log(res)
       this.setState({
         estimates: res.data,
         currentView: 'list'
@@ -94,7 +90,7 @@ class App extends Component {
     }).catch( err => console.log(err))
   }
 
-  // App Calls
+  // UI calls
 
   setFilter = (event) => {
     this.setState({
@@ -110,26 +106,30 @@ class App extends Component {
   }
 
   handleSelected= (e, action) => {
-    console.log(action)
     if(action === 'list') {
       this.setState({
         selectedEstimate: {},
         currentView: 'list'
       })
-      console.log(this.state.selectedEstimate)
     } else if(action === 'new') {
       this.setState({
         selectedEstimate: {},
         currentView: 'new'
       })
-      console.log(this.state.selectedEstimate)
     } else if (action === 'view') {
-      const currentSelection = this.state.estimates.filter(elem => elem.id === +e.currentTarget.dataset.id)
-      this.setState({
-        selectedEstimate: currentSelection,
-        currentView: 'view'
-      })
-      console.log(this.state.selectedEstimate)
+      if(e === null){
+        const updatedSelection = this.state.estimates.filter(elem => elem.id === this.state.selectedEstimate[0].id)
+        this.setState({
+          selectedEstimate: updatedSelection,
+          currentView: 'view'
+        })
+      } else {
+        const currentSelection = this.state.estimates.filter(elem => elem.id === +e.currentTarget.dataset.id)
+        this.setState({
+          selectedEstimate: currentSelection,
+          currentView: 'view'
+        })
+      }
     } else if (action === 'edit') {
       this.setState({
         currentView: 'edit'
@@ -138,12 +138,10 @@ class App extends Component {
       this.setState({
         currentView: 'delete'
       })
-      console.log(this.state.selectedEstimate)
     }
   } 
 
   render() {
-    console.log(this.state.estimates)
     return (
     <div className="App">
       <header className="fixed-top">

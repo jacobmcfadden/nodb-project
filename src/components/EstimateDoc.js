@@ -5,15 +5,7 @@ import CrossIcon from '../assets/icons/CrossIcon';
 
 const EstimateDoc = (props) => {
     const {id, status, approved, date, title, propertyName, streetAddress, cityStateZip, mgtCo, client, estimateNotes, scope, totalPrice } = props.selectedEstimate[0];
-    const officeInfo = [
-        {
-            officeName: "",
-            officeStreet: "",
-            officeCityState: "",
-            officePhone: "",
-            officeEmail: ""
-        }
-    ]
+
     return (
         <div className="container">       
             <div className="col"  id="estimate">
@@ -44,7 +36,6 @@ const EstimateDoc = (props) => {
                                 <div className="" id="mgtCo">{`${mgtCo}`}</div>
                                 <div className="" id="client">{`${client}`}</div>
                             </div>
-
                             <div className="" id="date">{`DATE: ${date}`}</div>
                         </div>
                         <div className="" id="title">

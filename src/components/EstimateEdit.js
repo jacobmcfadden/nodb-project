@@ -34,7 +34,7 @@ class EstimateEdit extends Component {
                         <div data-id={this.state.id} className="estimate-caption">
                             <div className="" id="id">ID: { this.state.id }</div>
                             <div className="" id="status">Status: { this.state.status }</div>
-                            <form onSubmit={(e) => this.props.editEstimate(e, this.state.id, this.state)}>
+                            <form onSubmit={(e) => this.props.editEstimate(this.state.id, this.state)}>
                                 <div className="" id="date"><input name="date" value={this.state.date} type="text" onChange={(e) => this.universalHandler(e)}/></div>
                                 <div className="" id="title"><input name="title" value={this.state.title} type="text" onChange={(e) => this.universalHandler(e)}/></div>
                                 <div className="" id="propertyName"><input name="propertyName" value={this.state.propertyName} type="text" onChange={(e) => this.universalHandler(e)}/></div>
