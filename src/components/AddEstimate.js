@@ -31,7 +31,7 @@ class AddEstimate extends Component {
                     <div className="col" id="estimate">
                         <div  data-id="add" className="estimate-sv">
                             <div className="estimate-caption">
-                                <form action="submit" onSubmit={e => this.props.addEstimate(this.state.id)}>
+                                <form action="submit" onSubmit={e => this.props.addEstimate(e, this.state)}>
                                     <div className="" id="date">Date<input name="date" value={this.state.date} type="text" onChange={(e) => this.universalHandler(e)}/></div>
                                     <div className="" id="title">Title<input name="title" value={this.state.title} type="text" onChange={(e) => this.universalHandler(e)}/></div>
                                     <div className="" id="propertyName">Property Name<input name="propertyName" value={this.state.propertyName} type="text" onChange={(e) => this.universalHandler(e)}/></div>

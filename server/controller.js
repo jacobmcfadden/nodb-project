@@ -31,6 +31,23 @@ module.exports = {
             }
         },
     deleteEstimate: (req, res) => {
-        
+        const {id} = req.params;
+        const index = estimates.findIndex(estimate => estimate.id === +id)
+        if(index === -1){
+            res.status(404).send('estimate not found in list')
+        } else {
+            estimates.splice(index, 1);
+            res.status(200).send(estimates)
+        }
+    },
+    approveEstimate: (req, res) => {
+        const {id} = req.params;
+        const index = estimates.findIndex(estimate => estimate.id === +id)
+        if(index === -1){
+            res.status(404).send('estimate not found in list')
+        } else {
+            estimate[index].approved = !estimate[index].approved
+            res.status(200).send(estimates)
+        }
     }
     }

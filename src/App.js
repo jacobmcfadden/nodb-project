@@ -45,15 +45,16 @@ class App extends Component {
     }).catch( err => console.log(err))
   }
 
-  addEstimate = (body) => {
+  addEstimate = (e, body) => {
+    e.preventDefault();
     const { date, title, propertyName, streetAddress, cityStateZip, mgtCo, client, estimateNotes, scope, totalPrice } = body;
 
     axios.post('./api/estimates', {date, title, propertyName, streetAddress, cityStateZip, mgtCo, client, estimateNotes, scope, totalPrice})
     .then( res => {
       this.setState({
         estimates: res.data,
-        selectedEstimate: -1,
-        currentView: 'view'
+        selectedEstimate: [],
+        currentView: 'list'
       })
     })
     .catch( err => console.log(err))
@@ -63,12 +64,25 @@ class App extends Component {
     axios.delete(`./api/estimates/${id}`)
     .then(res => {
         this.setState({
-            estimates: res.data
+            estimates: res.data,
+            
+            currentView: 'list'
         })
+    }).catch( err => console.log(err))
+  }
+
+  approveEstimate = (id) => {
+    axios.put(`./api/estimates/approve/${id}`)
+    .then( res => {
+      this.setState({
+        estimates: res.data,
+        selectedEstimate: [],
+        currentView: 'list'
+      })
     })
   }
 
-  editEstimate = (id) => {
+  editEstimate = (id, body) => {
     axios.put(`./api/estimate/${id}`)
     .then(res => {
         this.setState({
@@ -76,6 +90,7 @@ class App extends Component {
         })
     })
   }
+
   // App Calls
 
   setFilter = (event) => {
@@ -147,6 +162,7 @@ class App extends Component {
         addEstimate={this.addEstimate}
         editEstimate={this.editEstimate}
         deleteEstimate={this.deleteEstimate}
+        approveEstimate={this.approveEstimate}
         />
       </main>
     </div>
