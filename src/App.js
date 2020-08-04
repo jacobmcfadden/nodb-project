@@ -6,7 +6,6 @@ import Header from './components/Header';
 import Mainnav from './components/Mainnav';
 import Estimate from './components/Estimate';
 
-
 class App extends Component {
   constructor() {
     super(); 
@@ -18,13 +17,16 @@ class App extends Component {
       currentView: "list",
       selectedEstimate: []
     }
+
     this.getEstimates = this.getEstimates.bind(this);
     this.addEstimate = this.addEstimate.bind(this);
     this.deleteEstimate = this.deleteEstimate.bind(this);
+    this.editEstimate = this.editEstimate.bind(this);
+    this.approveEstimate = this.approveEstimate.bind(this);
   }
 
   componentDidMount(){
-    this.getEstimates();
+    this.getEstimates()
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -45,7 +47,7 @@ class App extends Component {
   }
 
   addEstimate = (e, body) => {
-    e.preventDefault();
+ 
     const { date, title, propertyName, streetAddress, cityStateZip, mgtCo, client, estimateNotes, scope, totalPrice } = body;
 
     axios.post('./api/estimates', {date, title, propertyName, streetAddress, cityStateZip, mgtCo, client, estimateNotes, scope, totalPrice})
@@ -69,27 +71,26 @@ class App extends Component {
   }
 
   approveEstimate = (e, id) => {
-    e.preventDefault();
+   
     axios.put(`./api/estimates/approve/${id}`)
     .then( res => {
       this.setState({
         estimates: res.data,
-      
         currentView: 'view'
       })
     }).catch( err => console.log(err))
   }
 
-  editEstimate = (e, body) => {
-    e.preventDefault();
-    console.log(body)
-    const {id } = body;
+  editEstimate = (e, id, body) => {
+
+  
     axios.put(`./api/estimates/edit/${id}`, {body})
-    .then(res => {
-        this.setState({
-            estimates: res.data,
-            currentView: 'list'
-        })
+    .then( res => {
+      console.log(res)
+      this.setState({
+        estimates: res.data,
+        currentView: 'list'
+      })
     }).catch( err => console.log(err))
   }
 
@@ -141,8 +142,8 @@ class App extends Component {
     }
   } 
 
-
   render() {
+    console.log(this.state.estimates)
     return (
     <div className="App">
       <header className="fixed-top">
@@ -156,7 +157,7 @@ class App extends Component {
         approveEstimate={this.approveEstimate}
         />
       </header>
-      <main className="bg-light">
+      <main className="display-content bg-light">
         <Estimate 
         estimates={!this.state.filteredEstimates ? this.state.estimates : this.state.filteredEstimates} 
         currentView={this.state.currentView} 
@@ -165,7 +166,6 @@ class App extends Component {
         addEstimate={this.addEstimate}
         editEstimate={this.editEstimate}
         deleteEstimate={this.deleteEstimate}
-        
         />
       </main>
     </div>

@@ -1,9 +1,10 @@
 const express = require('express');
 const ctrl = require('./controller');
-const app = express();
-const port = 4004;
 
+const app = express();
 app.use(express.json());
+
+const port = 4004;
 
 app.get('/api/estimates', ctrl.getEstimates);
 app.post('/api/estimates', ctrl.addEstimate);

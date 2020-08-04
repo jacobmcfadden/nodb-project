@@ -1,7 +1,4 @@
-#root {
-  width: 100%;
-  height: 100%;
-}
+
 /* General Styling */
 
 .fade {
@@ -413,96 +410,63 @@
 }
 
 
-/* App Styling */
+/* Main App Styling elements*/
 
 .app {
   width: 100%;
   height: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.display-content{
+  width: 100%;
+  height: calc(100% - 131px);
+
+  position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 131px;
+}
+
+.page-section {
+  width: 100%;
+  height: 100%;
+
   display: flex;
   flex-direction: column;
 }
 
 .container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  
   padding-right: 0.75rem;
   padding-left: 0.75rem;
+
   margin-right: auto;
   margin-left: auto;
   margin-top: 5px;
 }
 
-/* Navbar Styling */
-
-button {
-  background-color: #273341;
-	border-radius:18px;
-	border:1px solid #273341;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	padding:10px 33px;
-  text-decoration:none;
-  margin-right: 10px;
+.row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
   
 }
 
-input {
-  box-sizing: border-box;
-  font-size: 16px;
-  border-width: 2px;
-  border-color: #cccccc;
-  border-style: hidden;
-  border-bottom: 1px;
-  padding-top: 9px;
-  padding-bottom: 3px;
-  padding-left: 5px;
-  border-radius: 4px;
-  width: fit-content;
-  min-height: 36px;
-  height: fit-content;
-  background-color: #f2f2f2;
-}
-
-form input {
-  margin: 10px;
-}
-
-main {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-top: 124px;
-}
-
-main {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-top: 124px;
-}
-
-.page-title {
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  color: #1071D4;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.col {
-  flex: 0 0 100%;
-  max-width: 100%;
-  align-content: center;
-}
+/* List Component Styling  */
 
 .col-lg-3 {
   flex: 0 0 25%;
@@ -585,75 +549,364 @@ main {
   font-size: 12px;
 }
 
+/* Estimate Doc Styling */
+
+.col {
+  flex: 0 0 100%;
+  max-width: 100%;
+  align-content: center;
+}
+
 #estimate .estimate-sv {
   background-color: white;
   border-color: #e0e0e0;
-  width: 850px;
-  height: 1100px;
+  width: 618px;
+  height: 800px;
   display: flex;
   flex-direction: column;
   margin: auto auto;
+  padding: 35px;
+  padding-top: 10px;
 }
 
-
-#estimate .estimate-sv .estimate-link {
-  height: 170px;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-#estimate .estimate-sv .estimate-caption {
-  background-color: white;
-  padding: 1rem;
+#estimate .estimate-sv .page-header{
   width: 100%;
-  height: 100%;
-  bottom: 0;
-  border-color: #E0E0E0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 30px;
 }
 
-#estimate .estimate-sv .estimate-caption #id {
-  color: #434343;
-  font-size: 14px;
-  text-align: end;
-  margin-top: 3px;
-}
-
-#estimate .estimate-sv .estimate-caption #title {
-  color: #1071D4;
-  font-size: 18px;
-  margin-top: 20px;
-}
-
-#estimate .estimate-sv .estimate-caption #property {
-  margin-top: 8px;
-  font-size: 14px;
-}
-
-#estimate .estimate-sv .estimate-caption #mgt-co {
-  margin-top: 5px;
-  font-size: 14px;
-}
-
-#estimate .estimate-sv .estimate-caption #client {
-  margin-top: 5px;
-  font-size: 14px;
-}
-
-#estimate .estimate-sv .estimate-caption #total-price{
-  font-size: 16px;
-  margin-top: 30px;
-  text-align: end;
-}
-
-#estimate .estimate-item .estimate-caption hr{
-  border-color: lightgray;
-  margin-top: 20px;
+#estimate .estimate-sv .page-header .estimate-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
   margin-bottom: 10px;
 }
 
-#estimate .estimate-item .estimate-caption p{
+#estimate .estimate-sv .page-header #id, #estimate .estimate-sv .page-header #status, #estimate .estimate-sv .page-header #approved{
+  text-align: start;
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+#estimate .estimate-sv .page-header img{
+  width: 120px;
+}
+
+#estimate .estimate-sv .page-header .company-office{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-end;
+}
+
+#estimate .estimate-sv .page-header .company-office .office-info{
+  text-align: end;
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+#estimate .estimate-sv .cross{
+  width: 35px;
+  margin-left: auto;
+  font-size: 10px;
+  text-align: center;
+  margin-top: 0px;
   color: #1071D4;
+}
+
+#estimate .estimate-sv .cross:hover{
+  width: 35px;
+  margin-left: auto;
+  font-size: 10px;
+  text-align: center;
+  margin-top: 0px;
+  color: #273341;
+}
+/* Body Styling  */
+
+#estimate .estimate-sv .document-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+#estimate .estimate-sv .document-body .estimate-section-title {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: flex-start;
+  
+}
+
+#estimate .estimate-sv .document-body .estimate-section-title  .client-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 11px;
+  font-weight: 500;
+  
+}
+
+#estimate .estimate-sv .document-body .estimate-section-title  .client-info #propertyName{
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+#estimate .estimate-sv .document-body .estimate-section-title  .client-info #streetAddress{
+  
+  margin-bottom: 2px;
+}
+
+#estimate > .estimate-sv > .document-body > .estimate-section-title > .client-info > #mgtCo, #estimate > .estimate-sv > .document-body > .estimate-section-title > .client-info > #client{
+  margin-top: 5px;
+
+}
+
+#estimate .estimate-sv .document-body #title {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 30px;
+  text-align: center;
+  width: 100%;
+}
+
+#estimate .estimate-sv .document-body #title .title-label {
+  font-weight: 500;
   font-size: 12px;
+}
+
+#estimate .estimate-sv .document-body #title .title {
+  font-weight: 500;
+  margin-top: 3px;
+}
+
+#estimate .estimate-sv .document-body .estimate-section-title #date {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-end;
+  margin-bottom: 30px;
+  text-align: end;
+  font-size: 11px;
+  width: 131px;
+  font-weight: 500;
+}
+
+#estimate .estimate-sv .document-body .estimate-notes {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+  font-size: 11px;
+}
+
+#estimate .estimate-sv .document-body .estimate-notes .note-label {
+  font-weight: 600;
+  font-size: 10px;
+  margin-bottom: 3px;
+  overflow-wrap: normal;
+  padding-left: 3px;
+}
+
+#estimate .estimate-sv .document-body .estimate-notes .note-box {
+  background-color: #f8f8f8;
+  height: 36px;
+  border-radius: 4px;
+  padding: 3px;
+}
+
+#estimate .estimate-sv .document-body .estimate-scope {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  margin-bottom: 30px;
+  font-size: 12px;
+}
+
+#estimate .estimate-sv .document-body .estimate-scope .column-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+  margin-bottom: 10px;
+
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  background-color: #EEEEEE;
+  border-radius: 3px;
+
+  font-size: 12px;
+  font-weight: 500;
+
+}
+
+#estimate .estimate-sv .document-body .estimate-scope .scope {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+  margin-bottom: 10px;
+
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 100px;
+
+  font-size: 12px;
+ 
+  
+}
+
+#estimate .estimate-sv .document-body .estimate-price {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  background-color: #EEEEEE;
+  border-radius: 3px;
+
+  font-size: 12px;
+  font-weight: 500;
+
+}
+
+#estimate .estimate-sv .document-body .estimate-price .price-label {
+  margin-right: 5px;
+
+}
+
+/* Document Footer Styling */
+
+#estimate .estimate-sv .page-footer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+}
+
+#estimate .estimate-sv .page-footer .estimate-disclaimer{
+  width: 100%;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: .75rem;
+  text-align: justify;
+  margin-bottom: 5px;
+}
+
+#estimate .estimate-sv .page-footer .info-boxes{
+  width: 100%;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: .75rem;
+  overflow-wrap: normal;
+}
+
+#estimate .estimate-sv .page-footer .info-boxes span{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-content: center;
+  margin-top: 3px;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+#estimate .estimate-sv .page-footer .info-boxes span .solid-box-frame{
+  width: 135px;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  padding: 5px;
+
+  border: 1px solid #EEEEEE;
+  border-radius: 3px;
+  background-color: #EEEEEE;
+  
+}
+
+#estimate .estimate-sv .page-footer .info-boxes span .box-frame{
+  width: 210px;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  
+  padding: 5px;
+ 
+  margin-left: 3px;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+
+  font-size: 10px;
+}
+
+/* END Document Styling */
+
+button {
+  background-color: #273341;
+	border-radius:18px;
+	border:1px solid #273341;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	padding:10px 33px;
+  text-decoration:none;
+  margin-right: 10px;
+  
+}
+
+input {
+  box-sizing: border-box;
+  font-size: 16px;
+  border-width: 2px;
+  border-color: #cccccc;
+  border-style: hidden;
+  border-bottom: 1px;
+  padding-top: 9px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  border-radius: 4px;
+  width: fit-content;
+  min-height: 36px;
+  height: fit-content;
+  background-color: #f2f2f2;
+}
+
+form input {
+  margin: 10px;
+}
+
+.page-title {
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #1071D4;
 }
 
 .estimateSearch {
@@ -672,6 +925,7 @@ main {
   width: 166px;
   fill: #F2CB56;
 }
+
 .fill-completed {
   margin: 40px;
   width: 166px;
