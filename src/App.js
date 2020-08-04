@@ -1,44 +1,157 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
 
+import Header from './components/Header';
+import Mainnav from './components/Mainnav';
+import Estimate from './components/Estimate';
+
+
 class App extends Component {
+  constructor() {
+    super(); 
+
+    this.state = {
+      estimates: [],
+      filterPhrase: "",
+      filteredEstimates: null,
+      currentView: "list",
+      selectedEstimate: []
+    }
+    this.getEstimates = this.getEstimates.bind(this);
+    this.addEstimate = this.addEstimate.bind(this);
+    this.deleteEstimate = this.deleteEstimate.bind(this);
+  }
+
+  componentDidMount(){
+    this.getEstimates();
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.filterPhrase !== this.state.filterPhrase) {
+      this.filterEstimates(this.state.filterPhrase);
+    }
+      
+  }
+
+  //-------Axios backend calls
+
+  getEstimates = () => {
+    axios.get('/api/estimates')
+    .then(res => {
+      this.setState({
+        estimates: res.data
+      })
+    }).catch( err => console.log(err))
+  }
+
+  addEstimate = (body) => {
+    const { date, title, propertyName, streetAddress, cityStateZip, mgtCo, client, estimateNotes, scope, totalPrice } = body;
+
+    axios.post('./api/estimates', {date, title, propertyName, streetAddress, cityStateZip, mgtCo, client, estimateNotes, scope, totalPrice})
+    .then( res => {
+      this.setState({
+        estimates: res.data,
+        selectedEstimate: -1,
+        currentView: 'view'
+      })
+    })
+    .catch( err => console.log(err))
+  }
+
+  deleteEstimate = (id) => {
+    axios.delete(`./api/estimates/${id}`)
+    .then(res => {
+        this.setState({
+            estimates: res.data
+        })
+    })
+  }
+
+  editEstimate = (id) => {
+    axios.put(`./api/estimate/${id}`)
+    .then(res => {
+        this.setState({
+            estimates: res.data
+        })
+    })
+  }
+  // App Calls
+
+  setFilter = (event) => {
+    this.setState({
+      filterPhrase: event.target.value
+    });
+  }
+
+  filterEstimates = (value) => {
+    let filterResult = this.state.estimates.filter(elem => String(elem.title).includes(value));
+    this.setState({
+      filteredEstimates: filterResult
+    });
+  }
+
+  handleSelected= (e, action) => {
+    console.log(action)
+    if(action === 'list') {
+      this.setState({
+        selectedEstimate: {},
+        currentView: 'list'
+      })
+      console.log(this.state.selectedEstimate)
+    } else if(action === 'new') {
+      this.setState({
+        selectedEstimate: {},
+        currentView: 'new'
+      })
+      console.log(this.state.selectedEstimate)
+    } else if (action === 'view') {
+      const currentSelection = this.state.estimates.filter(elem => elem.id === +e.currentTarget.dataset.id)
+      this.setState({
+        selectedEstimate: currentSelection,
+        currentView: 'view'
+      })
+      console.log(this.state.selectedEstimate)
+    } else if (action === 'edit') {
+      this.setState({
+        currentView: 'edit'
+      })
+    } else {
+      this.setState({
+        currentView: 'delete'
+      })
+      console.log(this.state.selectedEstimate)
+    }
+  } 
+
+
   render() {
     return (
     <div className="App">
       <header className="fixed-top">
-      <nav className="navbar bg-primary" id="mainNav">
-        <div className="container">
-          <div className="app-title">
-            <img className="logo" src={logo} alt="" />
-          </div>
-          <div className="navbar-collapse">
-            <ul className="navbar-nav text-uppercase ml-auto">
-                <li className="nav-item"><a className="nav-link" href="#dashboard" onClick={this.toggleMenu}>Dashboard</a></li>
-                <li className="nav-item"><a className="nav-link" href="#search" onClick={this.toggleMenu}>Search</a></li>
-                <li className="nav-item"><a className="nav-link" href="#reports" onClick={this.toggleMenu}>Reports</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <nav className="navbar bg-light" id="mainNav">
-        <div className="container">
-        <div className="app-title">
-            
-            <a className="page-title" href="#dashboard" onClick={this.toggleMenu}>Search</a>
-          </div>
-          <div className="collapse navbar-swap">
-            
-          </div>
-        </div>
-      </nav>
+        <Mainnav/>
+        <Header 
+        filterPhrase={this.state.filterPhrase} 
+        setFilter={this.setFilter} 
+        currentView={this.state.currentView} 
+        handleSelected={this.handleSelected}
+        selectedEstimate={this.state.selectedEstimate}
+        />
       </header>
-      <main className="bg-primary">
-
+      <main className="bg-light">
+        <Estimate 
+        estimates={!this.state.filteredEstimates ? this.state.estimates : this.state.filteredEstimates} 
+        currentView={this.state.currentView} 
+        selectedEstimate={this.state.selectedEstimate} 
+        handleSelected={this.handleSelected}
+        addEstimate={this.addEstimate}
+        editEstimate={this.editEstimate}
+        deleteEstimate={this.deleteEstimate}
+        />
       </main>
     </div>
-  );
-}
+    );
+  }
 }
 
 export default App;
